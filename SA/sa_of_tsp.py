@@ -25,14 +25,21 @@ class Route:
         return d
     def _two_change(self):
         length = len(self.path)
-        loc1 = rd.randint(0,length-1)
-        loc2 = rd.randint(0,length-1)
+        loc1,loc2 = rd.sample([i for i in range(length)], 2)
         self.path[loc1] , self.path[loc2] = self.path[loc2], self.path[loc1]
         return self._set_distance()
     def _half_change(self):
         length = len(self.path)
         loc = rd.randint(0,length-1)
         self.path = self.path[loc:]+self.path[0:loc]
+        return self._set_distance()
+    def _little_change(self):
+        length = len(self.path)
+        if rd.uniform(0,1) >0.5:
+            loc1,loc2 = rd.sample([i for i in range(length//2)], 2)
+        else:
+            loc1,loc2 = rd.sample([i for i in range(length//2,length)], 2)
+        self.path[loc1] , self.path[loc2] = self.path[loc2], self.path[loc1]
         return self._set_distance()
 
 class SimulatedAnnealing:
@@ -58,7 +65,11 @@ class SimulatedAnnealing:
         while (t>self.minTempature) :
             for _ in range(self.level):
                 new_route = copy.deepcopy(last_route)
-                new_route._two_change()
+                r = rd.uniform(0,1)
+                if r > 0.3:
+                    new_route._two_change()
+                else:
+                    new_route._little_change()
                 diff = new_route.distance - last_route.distance
 
                 if(diff<=0):
@@ -70,7 +81,7 @@ class SimulatedAnnealing:
                         last_route = new_route
             t *= rt
 
-        self.path = last_route
+        self.route = last_route
         return self.route.path, self.route.distance
     
 
@@ -94,7 +105,7 @@ def create_locations():
 
 if __name__ == '__main__':
     my_locs, xs, ys, cities = create_locations()
-    my_algo = SimulatedAnnealing(my_locs, 40, 500, 0.1, 0.98)
+    my_algo = SimulatedAnnealing(my_locs, 40, 500, 0.1, 0.99)
     best_route, best_route_length = my_algo.annealing()
     best_route.append(best_route[0])
     print([loc.name for loc in best_route], best_route_length)
