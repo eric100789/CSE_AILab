@@ -66,7 +66,7 @@ class SimulatedAnnealing:
             for _ in range(self.level):
                 new_route = copy.deepcopy(last_route)
                 r = rd.uniform(0,1)
-                if r > 0.3:
+                if r > 0.1:
                     new_route._two_change()
                 else:
                     new_route._little_change()
@@ -104,15 +104,19 @@ def create_locations():
     return locations, xs, ys, cities
 
 if __name__ == '__main__':
+    RUN_TIMES = 1
     my_locs, xs, ys, cities = create_locations()
-    my_algo = SimulatedAnnealing(my_locs, 40, 500, 0.1, 0.99)
-    best_route, best_route_length = my_algo.annealing()
-    best_route.append(best_route[0])
-    print([loc.name for loc in best_route], best_route_length)
-    print([(loc.loc[0], loc.loc[1]) for loc in best_route], best_route_length)
-    fig, ax = plt.subplots()
-    ax.plot([loc.loc[0] for loc in best_route], [loc.loc[1] for loc in best_route], 'red', linestyle='-', marker='')
-    ax.scatter(xs, ys)
-    for i, txt in enumerate(cities):
-        ax.annotate(txt, (xs[i], ys[i]))
+    for _ in range(RUN_TIMES):
+        my_algo = SimulatedAnnealing(my_locs, 40, 500, 0.1, 0.99)
+        best_route, best_route_length = my_algo.annealing()
+        best_route.append(best_route[0])
+        print([loc.name for loc in best_route], best_route_length)
+        print([(loc.loc[0], loc.loc[1]) for loc in best_route], best_route_length)
+        fig, ax = plt.subplots()
+        ax.plot([loc.loc[0] for loc in best_route], [loc.loc[1] for loc in best_route], 'red', linestyle='-', marker='')
+        ax.scatter(xs, ys)
+        for i, txt in enumerate(cities):
+            ax.annotate(txt, (xs[i], ys[i]))
+        with open("SA/result.txt","a") as f:
+            f.write(str(best_route_length)+"\n")
     plt.show()

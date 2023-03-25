@@ -100,7 +100,7 @@ def create_locations():
     xs = []
     ys = []
     cities = []
-    f = open("tsp_test")
+    f = open("GA/tsp_test")
     try:
         while True:
             s = f.readline().split()
@@ -115,15 +115,19 @@ def create_locations():
     return locations, xs, ys, cities
 
 if __name__ == '__main__':
+    RUN_TIMES = 10
     my_locs, xs, ys, cities = create_locations()
-    my_algo = GeneticAlgo(my_locs, level=200, populations=150, variant=2, mutate_percent=0.01, elite_save_percent=0.15)
-    best_route, best_route_length = my_algo.evolution()
-    best_route.append(best_route[0])
-    print([loc.name for loc in best_route], best_route_length)
-    print([(loc.loc[0], loc.loc[1]) for loc in best_route], best_route_length)
-    fig, ax = plt.subplots()
-    ax.plot([loc.loc[0] for loc in best_route], [loc.loc[1] for loc in best_route], 'red', linestyle='-', marker='')
-    ax.scatter(xs, ys)
-    for i, txt in enumerate(cities):
-        ax.annotate(txt, (xs[i], ys[i]))
+    for _ in range(RUN_TIMES):
+        my_algo = GeneticAlgo(my_locs, level=200, populations=150, variant=2, mutate_percent=0.01, elite_save_percent=0.15)
+        best_route, best_route_length = my_algo.evolution()
+        best_route.append(best_route[0])
+        print([loc.name for loc in best_route], best_route_length)
+        print([(loc.loc[0], loc.loc[1]) for loc in best_route], best_route_length)
+        fig, ax = plt.subplots()
+        ax.plot([loc.loc[0] for loc in best_route], [loc.loc[1] for loc in best_route], 'red', linestyle='-', marker='')
+        ax.scatter(xs, ys)
+        for i, txt in enumerate(cities):
+            ax.annotate(txt, (xs[i], ys[i]))
+        with open("GA/result.txt","a") as f:
+            f.write(str(best_route_length)+"\n")
     plt.show()
