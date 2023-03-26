@@ -1,5 +1,13 @@
 #include "knn.h"
 
+template <typename T>
+class knn::cmp_distance {
+    public: 
+        bool operator()(T a, T b) {
+            return a.distance < b.distance;
+        }
+};
+
 knn :: knn(int dimension, vector<vector<double>> train_data, vector<int> train_label, vector<vector<double>> test_data, vector<int> test_label)
 {
     this->dimension = dimension;
@@ -57,5 +65,13 @@ int knn::classify(vector<double>& target)
         int label;
     } data;
     
+    priority_queue<data, vector<data>, cmp_distance<data>> pq;
+    
+    for(int row=0; row<train_label.size(); row++)
+    {
+        data m_data = {this->distance(target,train_data[row]), train_label[row]};
+        pq.push(m_data);
+    }
+
     
 }

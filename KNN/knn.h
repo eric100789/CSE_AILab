@@ -5,8 +5,11 @@
 #include<math.h>
 #include <vector>
 #include<fstream>
+#include <queue>
 
 using namespace std;
+
+
 
 class knn
 {
@@ -27,6 +30,7 @@ public:
 protected:
     int dimension;
     int k;
+    template <typename T> class cmp_distance;
     vector<vector<double>> train_data;
     vector<int> train_label;
     vector<double> train_max;
