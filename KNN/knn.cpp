@@ -66,6 +66,9 @@ int knn::classify(vector<double>& target)
     } data;
     
     priority_queue<data, vector<data>, cmp_distance<data>> pq;
+    int label_arr[100] = {0};
+    int max = INT_MIN;
+    int max_index;
     
     for(int row=0; row<train_label.size(); row++)
     {
@@ -73,5 +76,40 @@ int knn::classify(vector<double>& target)
         pq.push(m_data);
     }
 
-    
+    for(int i=0 ; i<k ; i++)
+    {
+        data d = pq.top();
+        ++label_arr[d.label];
+        pq.pop();
+    }
+
+    for(int i=0 ; i<100 ; i++)
+    {
+        if(label_arr[i]>max)
+        {
+            max = label_arr[i];
+            max_index = i;
+        }
+    }
+    return max_index;
+}
+
+void knn::training()
+{
+    ans_label.erase(ans_label.begin(), ans_label.end());
+    for(int row=0; row<test_data.size(); row++)
+    {
+        ans_label.push_back( this->classify(test_data[row]) );
+    }
+}
+
+double knn::get_correct()
+{
+    int correct_num = 0;
+    int label_num = test_label.size();
+    for(int i=0; i<label_num; i++)
+    {
+        correct_num += (test_label[i] == ans_label[i]);
+    }
+    return correct_num/label_num;
 }

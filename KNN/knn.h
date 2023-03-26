@@ -27,6 +27,10 @@ public:
 
     int classify(vector<double>& target);
 
+    void training();
+
+    double get_correct();
+
 protected:
     int dimension;
     int k;
@@ -42,7 +46,8 @@ protected:
 
 class knn_diabetes : public knn
 {
-
+    public:
+    int a;
 };
 
 #endif
