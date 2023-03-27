@@ -10,10 +10,10 @@ class knn::cmp_distance {
 
 knn :: knn()
 {
-    
+
 }
 
-knn :: knn(int dimension, vector<vector<double>> train_data, vector<int> train_label, vector<vector<double>> test_data, vector<int> test_label)
+knn :: knn(int dimension, vector<vector<double> > train_data, vector<int> train_label, vector<vector<double> > test_data, vector<int> test_label)
 {
     this->dimension = dimension;
     this->train_data = train_data;
@@ -70,7 +70,7 @@ int knn::classify(vector<double>& target)
         int label;
     } data;
     
-    priority_queue<data, vector<data>, cmp_distance<data>> pq;
+    priority_queue<data, vector<data>, cmp_distance<data> > pq;
     int label_arr[100] = {0};
     int max = INT_MIN;
     int max_index;

@@ -16,9 +16,9 @@ public:
     knn();
 
     knn(int dimension, 
-        vector<vector<double>> train_data, 
+        vector< vector<double> > train_data, 
         vector<int> train_label, 
-        vector<vector<double>> test_data,
+        vector< vector<double> > test_data,
         vector<int> test_label);
 
     void normalize();
@@ -35,11 +35,11 @@ protected:
     int dimension;
     int k;
     template <typename T> class cmp_distance;
-    vector<vector<double>> train_data;
+    vector< vector<double> > train_data;
     vector<int> train_label;
     vector<double> train_max;
     vector<double> train_min;
-    vector<vector<double>> test_data;
+    vector< vector<double> > test_data;
     vector<int> test_label;
     vector<int> ans_label;
 };

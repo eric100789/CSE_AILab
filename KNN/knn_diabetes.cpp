@@ -2,7 +2,7 @@
 
 knn_diabetes::knn_diabetes(fstream& train_file, fstream& test_file, int dimension) : knn()
 {
-    vector<vector<double>> train_data, test_data;
+    vector< vector<double> > train_data, test_data;
     vector<int> train_label, test_label;
 
     string line;
@@ -48,7 +48,7 @@ knn_diabetes::knn_diabetes(fstream& train_file, fstream& test_file, int dimensio
 
 void knn_diabetes::read_file(fstream& train_file, fstream& test_file, int dimension)
 {
-    vector<vector<double>> train_data, test_data;
+    vector< vector<double> > train_data, test_data;
     vector<int> train_label, test_label;
 
     string line;
