@@ -63,28 +63,28 @@ double knn::distance(vector<double>& tar1, vector<double>& tar2)
     return sqrt(dsum);
 }
 
-int knn::classify(vector<double>& target)
+typedef struct tmp_data
 {
-    typedef struct
-    {
-        double distance;
-        int label;
-    } data;
-    
-    priority_queue<data, vector<data>, cmp_distance<data> > pq;
+    double distance;
+    int label;
+} tmp_data;
+
+int knn::classify(vector<double>& target)
+{   
+    priority_queue<tmp_data, vector<tmp_data>, cmp_distance<tmp_data> > pq;
     int label_arr[100] = {0};
     int max = INT_MIN;
     int max_index;
     
-    for(int row=0; row<train_label.size(); row++)
+    for(size_t row=0; row<train_label.size(); row++)
     {
-        data m_data = {this->distance(target,train_data[row]), train_label[row]};
+        tmp_data m_data = {this->distance(target,train_data[row]), train_label[row]};
         pq.push(m_data);
     }
 
     for(int i=0 ; i<k ; i++)
     {
-        data d = pq.top();
+        tmp_data d = pq.top();
         ++(label_arr[d.label]);
         pq.pop();
     }
@@ -103,7 +103,7 @@ int knn::classify(vector<double>& target)
 void knn::training()
 {
     ans_label.erase(ans_label.begin(), ans_label.end());
-    for(int row=0; row<test_data.size(); row++)
+    for(size_t row=0; row<test_data.size(); row++)
     {
         ans_label.push_back( this->classify(test_data[row]) );
     }
