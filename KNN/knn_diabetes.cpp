@@ -1,12 +1,13 @@
 #include "knn_diabetes.h"
 
-knn_diabetes::knn_diabetes(fstream& train_file, fstream& test_file, int dimension) : knn()
+knn_diabetes::knn_diabetes(fstream& train_file, fstream& test_file, int dimension, int k) : knn()
 {
     vector< vector<double> > train_data, test_data;
     vector<int> train_label, test_label;
 
     string line;
     getline(train_file, line);
+    cout << line << endl;
     while(true)
     {
         vector<double> temp;
@@ -22,6 +23,14 @@ knn_diabetes::knn_diabetes(fstream& train_file, fstream& test_file, int dimensio
         train_data.push_back(temp);
     }
     BREAK1:
+    for(auto x: train_data)
+    {
+        for(auto y: x)
+        {
+            cout << y << " ";
+        }
+        cout <<endl;
+    }
 
     while(true)
     {
@@ -43,10 +52,11 @@ knn_diabetes::knn_diabetes(fstream& train_file, fstream& test_file, int dimensio
     this->train_label = train_label;
     this->test_data = test_data;
     this->test_label = test_label;
+    this->k = k;
 }
 
 
-void knn_diabetes::read_file(fstream& train_file, fstream& test_file, int dimension)
+void knn_diabetes::read_file(fstream& train_file, fstream& test_file, int dimension, int k)
 {
     vector< vector<double> > train_data, test_data;
     vector<int> train_label, test_label;
@@ -89,4 +99,5 @@ void knn_diabetes::read_file(fstream& train_file, fstream& test_file, int dimens
     this->train_label = train_label;
     this->test_data = test_data;
     this->test_label = test_label;
+    this->k = k;
 }

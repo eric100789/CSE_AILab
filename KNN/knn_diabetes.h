@@ -8,8 +8,8 @@
 class knn_diabetes : public knn
 {
     public:
-    knn_diabetes(fstream& train_file, fstream& test_file, int dimension);
-    void read_file(fstream& train_file, fstream& test_file, int dimension);
+    knn_diabetes(fstream& train_file, fstream& test_file, int dimension, int k);
+    void read_file(fstream& train_file, fstream& test_file, int dimension, int k);
 };
 
 #endif

@@ -15,7 +15,8 @@ class knn
 public:
     knn();
 
-    knn(int dimension, 
+    knn(int dimension,
+        int k,
         vector< vector<double> > train_data, 
         vector<int> train_label, 
         vector< vector<double> > test_data,

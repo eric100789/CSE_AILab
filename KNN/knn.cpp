@@ -13,13 +13,14 @@ knn :: knn()
 
 }
 
-knn :: knn(int dimension, vector<vector<double> > train_data, vector<int> train_label, vector<vector<double> > test_data, vector<int> test_label)
+knn :: knn(int dimension, int k, vector<vector<double> > train_data, vector<int> train_label, vector<vector<double> > test_data, vector<int> test_label)
 {
     this->dimension = dimension;
     this->train_data = train_data;
     this->train_label = train_label;
     this->test_data = test_data;
     this->test_label = test_label;
+    this->k = k;
 }
 
 void knn::normalize()
