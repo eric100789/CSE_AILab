@@ -4,7 +4,7 @@ template <typename T>
 class knn::cmp_distance {
     public: 
         bool operator()(T a, T b) {
-            return a.distance < b.distance;
+            return a.distance > b.distance;
         }
 };
 
@@ -85,7 +85,7 @@ int knn::classify(vector<double>& target)
     for(int i=0 ; i<k ; i++)
     {
         data d = pq.top();
-        ++label_arr[d.label];
+        ++(label_arr[d.label]);
         pq.pop();
     }
 
@@ -115,7 +115,8 @@ double knn::get_correct()
     int label_num = test_label.size();
     for(int i=0; i<label_num; i++)
     {
-        correct_num += (test_label[i] == ans_label[i]);
+        if(ans_label[i] == test_label[i])
+            ++correct_num;
     }
-    return correct_num/label_num;
+    return (double)correct_num/(double)label_num;
 }
