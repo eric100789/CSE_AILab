@@ -1,20 +1,20 @@
 #ifndef KNN_H
 #define KNN_H
 
-#include<iostream>
-#include<math.h>
+#include <iostream>
+#include <math.h>
 #include <vector>
-#include<fstream>
+#include <fstream>
 #include <queue>
 
 using namespace std;
-
-
 
 class knn
 {
 
 public:
+    knn();
+
     knn(int dimension, 
         vector<vector<double>> train_data, 
         vector<int> train_label, 
@@ -42,12 +42,6 @@ protected:
     vector<vector<double>> test_data;
     vector<int> test_label;
     vector<int> ans_label;
-};
-
-class knn_diabetes : public knn
-{
-    public:
-    int a;
 };
 
 #endif

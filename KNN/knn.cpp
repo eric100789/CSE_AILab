@@ -8,6 +8,11 @@ class knn::cmp_distance {
         }
 };
 
+knn :: knn()
+{
+    
+}
+
 knn :: knn(int dimension, vector<vector<double>> train_data, vector<int> train_label, vector<vector<double>> test_data, vector<int> test_label)
 {
     this->dimension = dimension;
