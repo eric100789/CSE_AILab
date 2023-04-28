@@ -1,2 +1,4 @@
 MNIST/mnist
+diffusion_model/flowers-102
+source/
 .vscode
