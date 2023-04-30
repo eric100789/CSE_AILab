@@ -12,5 +12,6 @@ def show_images(datset, num_samples=20, cols=4):
         plt.imshow(img[0])
     plt.show()
 
-data = torchvision.datasets.Flowers102(root=".", download=False)
-show_images(data)
+if __name__ == "__main__":
+    data = torchvision.datasets.Flowers102(root=".", download=False)
+    show_images(data)
