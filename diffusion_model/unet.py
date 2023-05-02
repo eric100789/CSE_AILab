@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+### 尚未理解的部分： SelfAttention
 class SelfAttention(nn.Module):
     def __init__(self, channels, size):
         super(SelfAttention, self).__init__()
@@ -24,7 +25,7 @@ class SelfAttention(nn.Module):
         attention_value = self.ff_self(attention_value) + attention_value
         return attention_value.swapaxes(2, 1).view(-1, self.channels, self.size, self.size)
 
-
+### Double Conv -> 執行兩次卷積的部分，也就是圖片當中的兩次右移
 class DoubleConv(nn.Module):
     def __init__(self, in_channels, out_channels, mid_channels=None, residual=False):
         super().__init__()
@@ -32,9 +33,12 @@ class DoubleConv(nn.Module):
         if not mid_channels:
             mid_channels = out_channels
         self.double_conv = nn.Sequential(
+            # 第一次卷積
             nn.Conv2d(in_channels, mid_channels, kernel_size=3, padding=1, bias=False),
             nn.GroupNorm(1, mid_channels),
+            # 激活函數
             nn.GELU(),
+            # 第二次卷積
             nn.Conv2d(mid_channels, out_channels, kernel_size=3, padding=1, bias=False),
             nn.GroupNorm(1, out_channels),
         )
