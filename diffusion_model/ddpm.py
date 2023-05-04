@@ -7,7 +7,6 @@ from torch import optim
 from utils import *
 from unet import UNet
 import logging
-from torch.utils.tensorboard import SummaryWriter
 
 # The Implementation is on YouTube: https://youtu.be/TBCRlnwJtZU
 
@@ -74,7 +73,6 @@ def train(args):
     optimizer = optim.AdamW(model.parameters(), lr=args.lr)
     mse = nn.MSELoss()
     diffusion = Diffusion(img_size=args.image_size, device=device)
-    logger = SummaryWriter(os.path.join("runs", args.run_name))
     l = len(dataloader)
 
     for epoch in range(args.epochs):
@@ -107,7 +105,7 @@ def launch():
     args.epochs = 500
     args.batch_size = 12
     args.image_size = 64
-    args.dataset_path = r"C:\Users\dome\datasets\landscape_img_folder"
+    args.dataset_path = r"C:\Users\user\Desktop\Code\CSE_AILab\diffusion_model\flowers-102\jpg"
     args.device = "cuda"
     args.lr = 3e-4
     train(args)
