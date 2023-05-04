@@ -7,6 +7,7 @@ from torch import optim
 from utils import *
 from unet import UNet
 import logging
+from torch.utils.tensorboard import SummaryWriter
 
 # The Implementation is on YouTube: https://youtu.be/TBCRlnwJtZU
 
@@ -74,6 +75,7 @@ def train(args):
     mse = nn.MSELoss()
     diffusion = Diffusion(img_size=args.image_size, device=device)
     l = len(dataloader)
+    logger = SummaryWriter(os.path.join("runs", args.run_name))
 
     for epoch in range(args.epochs):
         logging.info(f"Starting epoch {epoch}:")
