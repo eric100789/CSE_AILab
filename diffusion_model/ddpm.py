@@ -84,6 +84,8 @@ def train(args):
             images = images.to(device)
             t = diffusion.sample_timesteps(images.shape[0]).to(device)
             x_t, noise = diffusion.noise_images(images, t)
+            del images
+            torch.cuda.empty_cache()
             predicted_noise = model(x_t, t)
             loss = mse(noise, predicted_noise)
 

@@ -13,5 +13,5 @@ def show_images(datset, num_samples=20, cols=4):
     plt.show()
 
 if __name__ == "__main__":
-    data = torchvision.datasets.EuroSAT(root="train", download=False)
+    data = torchvision.datasets.CIFAR10(root="train", download=True)
     show_images(data)
