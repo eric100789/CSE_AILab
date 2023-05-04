@@ -107,7 +107,7 @@ def launch():
     args.epochs = 500
     args.batch_size = 12
     args.image_size = 64
-    args.dataset_path = r"C:\Users\user\Desktop\Code\CSE_AILab\diffusion_model\train\t10k-images-idx3-ubyte"
+    args.dataset_path = r"C:\Users\user\Desktop\Code\CSE_AILab\diffusion_model\train\fansion_minst\t10k-images-idx3-ubyte"
     args.device = "cuda"
     args.lr = 3e-4
     train(args)
