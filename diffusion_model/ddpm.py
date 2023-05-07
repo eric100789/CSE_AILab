@@ -84,8 +84,6 @@ def train(args):
             images = images.to(device)
             t = diffusion.sample_timesteps(images.shape[0]).to(device)
             x_t, noise = diffusion.noise_images(images, t)
-            del images
-            torch.cuda.empty_cache()
             predicted_noise = model(x_t, t)
             loss = mse(noise, predicted_noise)
 
@@ -106,8 +104,8 @@ def launch():
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
     args.run_name = "DDPM"
-    args.epochs = 500
-    args.batch_size = 12
+    args.epochs = 100
+    args.batch_size = 6
     args.image_size = 64
     args.dataset_path = r"C:\Users\user\Desktop\Code\CSE_AILab\diffusion_model\train\2750"
     args.device = "cuda"
