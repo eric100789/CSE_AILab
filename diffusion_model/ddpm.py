@@ -104,7 +104,7 @@ def launch():
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
     args.run_name = "DDPM"
-    args.epochs = 100
+    args.epochs = 200
     args.batch_size = 6
     args.image_size = 64
     args.dataset_path = r"C:\Users\user\Desktop\Code\CSE_AILab\diffusion_model\train\2750"
